@@ -40,7 +40,7 @@ export const HoverEffect: React.FC<HoverEffectProps> = ({
           viewport={{ once: true }}
           whileHover={{ scale: 1.05, transition: { duration: 0.08 } }}
           key={item?.title}
-          className="relative group flex justify-center items-center p-2"
+          className="relative group flex justify-center items-center md:p-2"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
@@ -84,7 +84,7 @@ export const Card: React.FC<CardProps> = ({ className, children }) => {
   return (
     <div
       className={cn(
-        "rounded-full p-4 overflow-hidden bg-black glass-effect hover:border-neutral-300 relative z-20 ",
+        "rounded-full p-1 md:p-4 overflow-hidden bg-black glass-effect hover:border-neutral-300 relative z-20 ",
         className
       )}
     >
