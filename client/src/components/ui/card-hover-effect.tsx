@@ -26,7 +26,7 @@ export const HoverEffect: React.FC<HoverEffectProps> = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-10 gap-4 md:gap-8 ",
+        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-10 gap-2 md:gap-8 ",
         className
       )}
     >
@@ -62,9 +62,9 @@ export const HoverEffect: React.FC<HoverEffectProps> = ({
             )}
           </AnimatePresence>
           <Card className="transition-all duration-200 h-36 w-36">
-            <h4 className=" text-sm font-thin">{item.title}</h4>
+            <h4 className="text-xs md:text-sm font-thin">{item.title}</h4>
             <img
-              className="h-12"
+              className="h-10 md:h-12"
               src={item.imgUrl ? urlFor(item.imgUrl) : ""}
             />
           </Card>

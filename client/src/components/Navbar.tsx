@@ -51,7 +51,7 @@ const links = [
 ];
 function Navbar() {
   return (
-    <div className="absolute z-50 md:my-10 w-fit md:left-1/2 md:bottom-auto md:-translate-x-1/2 dark md:hover:translate-y-1/2 right-8 top-8 transition-all duration-150">
+    <div className="absolute z-50 md:my-10 w-fit md:left-1/2 md:bottom-auto md:-translate-x-1/2 dark md:hover:translate-y-1/2 right-2 top-8 transition-all duration-150">
       <FloatingDock items={links} />
     </div>
   );
