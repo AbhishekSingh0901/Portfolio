@@ -6,8 +6,7 @@ import { sanityClient } from "@/utils/sanity.config";
 import { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-
+import { useToast } from "@hooks/use-toast";
 function Contact() {
   const [formData, setFormData] = useState({
     username: "",
