@@ -5,5 +5,5 @@ export const sanityClient = createClient({
   dataset: "production",
   apiVersion: "2023-11-17",
   useCdn: false, // Avoid CDN for authenticated requests
-  token: process.env.SANITY_API_TOKEN, // Use environment variable for the token
+  token: import.meta.env.VITE_SANITY_API_TOKEN, // Use environment variable for the token
 });
