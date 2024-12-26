@@ -26,7 +26,7 @@ export const HoverEffect: React.FC<HoverEffectProps> = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-10 gap-2 md:gap-8 ",
+        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-10 gap-8 w-fit ",
         className
       )}
     >
@@ -40,14 +40,14 @@ export const HoverEffect: React.FC<HoverEffectProps> = ({
           viewport={{ once: true }}
           whileHover={{ scale: 1.05, transition: { duration: 0.08 } }}
           key={item?.title}
-          className="relative group flex justify-center items-center md:p-2"
+          className="relative group flex justify-center md:justifly-center items-center md:p-2"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute  h-full w-40  bg-gradient-to-br from-red-900 via-pink-900 to-indigo-900 block rounded-full"
+                className="absolute  h-[110%] w-[110%]   bg-gradient-to-br from-red-900 via-pink-900 to-indigo-900 block rounded-full"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -61,7 +61,8 @@ export const HoverEffect: React.FC<HoverEffectProps> = ({
               />
             )}
           </AnimatePresence>
-          <Card className="transition-all duration-200 h-36 w-36">
+
+          <Card className="transition-all duration-200 h-36 w-36 flex flex-col justify-center items-center gap-2">
             <h4 className="text-xs md:text-sm font-thin">{item.title}</h4>
             <img
               className="h-10 md:h-12"
