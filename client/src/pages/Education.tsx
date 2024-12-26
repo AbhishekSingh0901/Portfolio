@@ -6,6 +6,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import imageUrlBuilder from "@sanity/image-url";
+import GlassCardSkeleton from "@/components/ui/glass-card-skeleton";
 
 export interface EducationType {
   degree?: string;
@@ -28,6 +29,8 @@ export interface ExperienceType {
 function Education() {
   const [education, setEducation] = useState<EducationType[]>([]);
   const [experience, setExperience] = useState<ExperienceType[]>([]);
+  const [educationLoading, setEducationLoading] = useState(true);
+  const [experienceLoading, setExperienceLoading] = useState(true);
 
   const builder = imageUrlBuilder(sanityClient);
 
@@ -35,12 +38,18 @@ function Education() {
     return builder.image(source).url();
   }
   useEffect(() => {
-    sanityClient.fetch(`*[_type == "education"]`).then((data) => {
-      setEducation(data);
-    });
-    sanityClient.fetch(`*[_type == "experience"]`).then((data) => {
-      setExperience(data);
-    });
+    sanityClient
+      .fetch(`*[_type == "education"]`)
+      .then((data) => {
+        setEducation(data);
+      })
+      .finally(() => setEducationLoading(false));
+    sanityClient
+      .fetch(`*[_type == "experience"]`)
+      .then((data) => {
+        setExperience(data);
+      })
+      .finally(() => setExperienceLoading(false));
   }, []);
   return (
     <div className="absolute z-30 h-screen w-screen p-6 mt-8 text-white overflow-y-scroll cool-scroll">
@@ -63,35 +72,37 @@ function Education() {
       <div className="grid lg:grid-cols-2 md:w-2/3 lg:w-full max-w-6xl mx-auto gap-10 my-14">
         <div className="flex flex-col gap-3">
           <Badge className="w-fit bg-red-600">EDUCATION</Badge>
-          {education.length &&
-            education.map((edu, idx) => (
-              <GlassCard
-                key={edu.institution}
-                title={edu.institution}
-                link={edu.url}
-                description={edu.degree}
-                logo={edu.logo ? urlFor(edu.logo) : undefined}
-                startDate={edu.startDate}
-                endDate={edu.endDate}
-                idx={idx}
-              />
-            ))}
+          {educationLoading
+            ? [1, 2].map((_, idx) => <GlassCardSkeleton key={idx} />)
+            : education.map((edu, idx) => (
+                <GlassCard
+                  key={edu.institution}
+                  title={edu.institution}
+                  link={edu.url}
+                  description={edu.degree}
+                  logo={edu.logo ? urlFor(edu.logo) : undefined}
+                  startDate={edu.startDate}
+                  endDate={edu.endDate}
+                  idx={idx}
+                />
+              ))}
         </div>
         <div className="flex flex-col gap-3">
           <Badge className="w-fit bg-red-600">EXPERIENCE</Badge>
-          {experience.length &&
-            experience.map((exp, idx) => (
-              <GlassCard
-                idx={idx}
-                key={exp.company}
-                title={exp.company}
-                description={exp.position}
-                logo={exp.logo ? urlFor(exp.logo) : undefined}
-                startDate={exp.startDate}
-                endDate={exp.endDate}
-                link={exp.url}
-              />
-            ))}
+          {experienceLoading
+            ? [1, 2].map((_, idx) => <GlassCardSkeleton key={idx} />)
+            : experience.map((exp, idx) => (
+                <GlassCard
+                  idx={idx}
+                  key={exp.company}
+                  title={exp.company}
+                  description={exp.position}
+                  logo={exp.logo ? urlFor(exp.logo) : undefined}
+                  startDate={exp.startDate}
+                  endDate={exp.endDate}
+                  link={exp.url}
+                />
+              ))}
         </div>
       </div>
     </div>

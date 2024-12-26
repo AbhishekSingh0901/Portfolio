@@ -140,9 +140,7 @@ export default function About() {
           </div>
           <div className="md:h-full flex items-end">
             {loading ? (
-              <div className="relative w-[200px] h-[200px] md:h-[350px]">
-                <Skeleton width="100%" height="100%" />
-              </div>
+              <Skeleton className="w-[180px] h-[200px] md:h-[350px]" />
             ) : (
               <img
                 className="h-[200px] md:h-[350px] align-bottom"

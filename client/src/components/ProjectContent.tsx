@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import imageUrlBuilder from "@sanity/image-url";
 import { sanityClient } from "@/utils/sanity.config";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { motion } from "framer-motion";
 
 interface ProjectDescription {
   _key: string;
@@ -29,7 +30,12 @@ function ProjectContent({ data }: ProjectContentProps) {
   const timelineData = data.map((project) => ({
     title: project.title,
     content: (
-      <div>
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.08, delay: 0.15 }}
+        viewport={{ once: true }}
+      >
         <ul
           className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8"
           style={{ listStyleType: "circle" }}
@@ -66,7 +72,7 @@ function ProjectContent({ data }: ProjectContentProps) {
             Github
           </Button>
         </div>
-      </div>
+      </motion.div>
     ),
   }));
 

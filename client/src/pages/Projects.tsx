@@ -40,7 +40,6 @@ function Projects() {
       </div>
       <div className=" max-w-6xl mx-auto gap-10 mt-8">
         {projectsData && <ProjectContent data={projectsData} />}
-        {/* <Timeline data={data} /> */}
       </div>
     </div>
   );
