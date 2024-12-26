@@ -4,12 +4,14 @@ import CodeEfftect from "@/components/CodeEfftect";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [showSpline, setShowSpline] = useState(false);
+  const [showSpline, setShowSpline] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowSpline(true);
-    }, 200); // Adjust delay as needed
+      setShowSpline(
+        "https://prod.spline.design/vjLtI1U83vSCIUye/scene.splinecode"
+      );
+    }, 2000); // Adjust delay as needed
 
     return () => clearTimeout(timer);
   }, []);
@@ -57,7 +59,7 @@ export default function Home() {
           whileInView={{ opacity: 1, x: 0, transition: { delay: 0.5 } }}
           className="absolute bottom-0 md:right-20 md:w-[650px] w-full h-full z-40"
         >
-          <Spline scene="https://prod.spline.design/vjLtI1U83vSCIUye/scene.splinecode" />
+          <Spline scene={showSpline} />
         </motion.div>
       )}
     </>

@@ -7,6 +7,8 @@ import { easeInOut, motion } from "framer-motion";
 import { Dna, Globe2Icon, Heart, LanguagesIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ReactTyped } from "react-typed";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface AboutData {
   description?: string;
@@ -18,14 +20,15 @@ interface AboutData {
 
 export default function About() {
   const [about, setAbout] = useState<AboutData[]>([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     sanityClient
       .fetch<AboutData[]>(`*[_type == "about"]`)
       .then((data) => {
         setAbout(data);
       })
-      .catch((error) => console.error("Error fetching about data:", error));
+      .catch((error) => console.error("Error fetching about data:", error))
+      .finally(() => setLoading(false));
   }, []);
 
   const builder = imageUrlBuilder(sanityClient);
@@ -59,14 +62,17 @@ export default function About() {
           whileInView={{ width: "100%" }}
           transition={{ ease: easeInOut }}
           viewport={{ once: true }}
+          id="about-container"
           className="flex flex-col-reverse md:flex-row max-w-6xl mx-auto my-10 gap-2 glass-effect justify-between items-center md:items-start pt-6"
         >
           <div className="w-full md:w-2/3 text-sm md:text-base px-8 font-thin text-justify">
-            <ReactTyped
-              strings={[aboutData?.description || "Welcome to my portfolio!"]}
-              typeSpeed={8}
-              showCursor={true}
-            />
+            {(loading && <Skeleton count={5} />) || (
+              <ReactTyped
+                strings={[aboutData?.description || ""]}
+                typeSpeed={8}
+                showCursor={true}
+              />
+            )}
             <div className="grid grid-flow-row md:grid-cols-2 lg:grid-cols-3 mt-8 gap-3">
               <div className="p-2 flex flex-col gap-2 md:col-span-2 lg:col-span-1">
                 <h4 className="flex items-center text-xl gap-2 font-medium border-b border-red-700 p-1">
@@ -76,9 +82,16 @@ export default function About() {
                   style={{ listStyleType: "circle" }}
                   className="flex gap-10 ml-11"
                 >
-                  {aboutData?.languages?.map((lang) => (
-                    <li key={lang}>{lang}</li>
-                  ))}
+                  {loading ? (
+                    <>
+                      <Skeleton />
+                      <Skeleton />
+                    </>
+                  ) : (
+                    aboutData?.languages?.map((lang) => (
+                      <li key={lang}>{lang}</li>
+                    ))
+                  )}
                 </ul>
               </div>
               <div className="p-2 flex flex-col gap-2">
@@ -86,7 +99,11 @@ export default function About() {
                   <Globe2Icon className="text-red-700" /> Nationality
                 </h4>
                 <ul style={{ listStyleType: "circle" }} className="ml-11">
-                  {aboutData?.nationality && <li>{aboutData.nationality}</li>}
+                  {loading ? (
+                    <Skeleton count={1} />
+                  ) : (
+                    <li>{aboutData.nationality}</li>
+                  )}
                 </ul>
               </div>
               <div className="p-2 flex flex-col gap-2">
@@ -105,19 +122,34 @@ export default function About() {
                   className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-3 ml-11"
                   style={{ listStyleType: "circle" }}
                 >
-                  {aboutData?.hobbies?.map((hobby) => (
-                    <li key={hobby}>{hobby}</li>
-                  ))}
+                  {loading ? (
+                    <>
+                      <Skeleton />
+                      <Skeleton />
+                      <Skeleton />
+                      <Skeleton />
+                    </>
+                  ) : (
+                    aboutData?.hobbies?.map((hobby) => (
+                      <li key={hobby}>{hobby}</li>
+                    ))
+                  )}
                 </ul>
               </div>
             </div>
           </div>
           <div className="md:h-full flex items-end">
-            <img
-              className="h-[200px] md:h-[350px] align-bottom"
-              src={aboutData?.imgUrl ? urlFor(aboutData.imgUrl) : ""}
-              alt="About me"
-            />
+            {loading ? (
+              <div className="relative w-[200px] h-[200px] md:h-[350px]">
+                <Skeleton width="100%" height="100%" />
+              </div>
+            ) : (
+              <img
+                className="h-[200px] md:h-[350px] align-bottom"
+                src={aboutData?.imgUrl ? urlFor(aboutData.imgUrl) : ""}
+                alt="About me"
+              />
+            )}
           </div>
         </motion.div>
       </div>

@@ -6,6 +6,7 @@ import Skills from "./pages/Skills";
 import Education from "./pages/Education";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <RouterProvider router={router} />
+    </SkeletonTheme>
+  );
 }
 
 export default App;
