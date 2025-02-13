@@ -38,7 +38,7 @@ export default function Home() {
             whileInView={{ translateY: 0, opacity: 1 }}
             whileHover={{ scale: 1.1 }}
             viewport={{ once: true }}
-            className="text-white font-thin text-base md:text-lg lg:text-xl glass-effect py-2 lg:py-3 px-6 rounded-lg font-rubik"
+            className="text-white font-thin text-base md:text-lg lg:text-xl glass-effect py-2 lg:py-3 px-6 rounded-lg font-rubik cursor-pointer z-50"
           >
             <motion.a
               viewport={{ once: true }}
@@ -57,7 +57,7 @@ export default function Home() {
           viewport={{ once: true }}
           initial={{ opacity: 0, x: 100 }}
           whileInView={{ opacity: 1, x: 0, transition: { delay: 0.5 } }}
-          className="absolute bottom-0 md:right-20 md:w-[650px] w-full h-full z-40"
+          className="absolute bottom-0 md:right-20 md:w-[650px] md:h-full w-full h-[50%] z-40"
         >
           <Spline scene={showSpline} />
         </motion.div>
